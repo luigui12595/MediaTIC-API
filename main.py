@@ -98,10 +98,10 @@ def get_comments():
     return response
 
 
-@app.route(constants.UPDATE_POSTS, methods=['PUT', 'OPTIONS'])
+@app.route(constants.UPDATE_POSTS, methods=['PUT'])
 def update_post():
     news = json.loads(request.data)
-    result = db.update_post(news['_id'], news)
+    result = db.update_post(news['post_id'], news)
     response_obj = {"matched": result.matched_count, "modified": result.modified_count}
     response = app.response_class(
         response=json.dumps(response_obj),

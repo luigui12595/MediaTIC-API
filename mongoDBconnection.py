@@ -14,16 +14,17 @@ def get_posts(post_query):
         results = db.posts.find(post_query, {'_id': False})
         for doc in results:
             dict_test = dict((k.encode('ascii'), v) for (k, v) in doc.items())
+            empty_dict = {}
             for (k, v) in dict_test.items():
-                key = k.encode('ascii')
+                key = k.decode('ascii', 'ignore')
                 if isinstance(v, str):
-                    dict_test[key] = v.encode('UTF-8', 'ignore')
+                    empty_dict[key] = str(v)
                 elif isinstance(v, ObjectId):
-                    dict_test[key] = str(v)
+                    empty_dict[key] = str(v)
                 else:
-                    dict_test[key] = v
-            dict_test = collections.OrderedDict(sorted(dict_test.items()))
-            result_array.append(dict_test)
+                    empty_dict[key] = v
+            empty_dict = collections.OrderedDict(sorted(empty_dict.items()))
+            result_array.append(empty_dict)
         max_keys = 0
         keys_list = []
         for doc in result_array:
@@ -45,10 +46,9 @@ def get_comment_from(post_id):
     try:
         post_result = db.comments.find({
             "post_id": post_id
-        }).sort([("post_position", pymongo.ASCENDING), ("comment_position", pymongo.ASCENDING)])
+        }, {'_id': False}).sort([("post_position", pymongo.ASCENDING), ("comment_position", pymongo.ASCENDING)])
         results = []
         for doc in post_result:
-            del doc["_id"]
             results.append(doc)
         return results
     except Exception as bwe:
@@ -83,9 +83,7 @@ def get_comment_by_posts(post_query, comment_query=None):
 
 def update_post(post_id, post_data):
     try:
-        post_id = ObjectId(post_id)
-        del post_data['_id']
-        result = db.posts.update_one({'_id': post_id}, {'$set': post_data})
+        result = db.posts.update_one({'post_id': post_id}, {'$set': post_data})
         return result
     except Exception as bwe:
         print(bwe)
