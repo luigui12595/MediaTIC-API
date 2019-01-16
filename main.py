@@ -42,7 +42,7 @@ def get_posts():
 def get_attribute_key(x):
     return {
         'medio': 'from.facebook_id',
-        'tema': 'subject',
+        'tema': 'category',
         'interes': 'interest',
         'campana': 'campaign',
         'tono': 'framing',
