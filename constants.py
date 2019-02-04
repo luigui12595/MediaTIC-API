@@ -1,12 +1,12 @@
 # PROD DATABASE ATTRIBUTES
-# DB_NAME = 'mediaPosts'
-# HOST = '0.0.0.0'
-# DEBUG = false
+DB_NAME = 'mediaPosts'
+HOST = '0.0.0.0'
+DEBUG = false
 
 # TEST DATABASE ATTRIBUTES
-DB_NAME = 'mediaNet'
-HOST = 'localhost'
-DEBUG = True
+# DB_NAME = 'mediaNet'
+# HOST = 'localhost'
+# DEBUG = True
 
 PORT = 8082
 
