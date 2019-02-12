@@ -23,7 +23,7 @@ def get_posts():
                 db_query_params["post_published_unix"]["$lte"] = int(params[param])
         elif param == 'text':
             db_query_params["$text"] = {}
-            db_query_params["$text"]["$search"] = params[param]
+            db_query_params["$text"]["$search"] = '\"' + params[param] + '\"'
         else:
             key_param = get_attribute_key(param)
             if key_param is not None:
