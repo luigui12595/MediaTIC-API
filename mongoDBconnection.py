@@ -21,6 +21,11 @@ def get_posts(post_query):
                     empty_dict[key] = str(v)
                 elif isinstance(v, ObjectId):
                     empty_dict[key] = str(v)
+                elif key == 'from':
+                    dict_test_sub = dict((k.encode('ascii'), v) for (k, v) in v.items())
+                    for (k, v) in dict_test_sub.items():
+                        key = k.decode('ascii', 'ignore')
+                        empty_dict[key] = str(v)
                 else:
                     empty_dict[key] = v
             empty_dict = collections.OrderedDict(sorted(empty_dict.items()))
