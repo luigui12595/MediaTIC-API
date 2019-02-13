@@ -75,11 +75,11 @@ def get_comments():
             elif param == 'text':
                 if search_text_by_post:
                     posts_query_params["$text"] = {}
-                    posts_query_params["$text"]["$search"] = params[param]
+                    posts_query_params["$text"]["$search"] = '\"' + params[param] + '\"'
                     del comments_query_params
                 else:
                     comments_query_params["$text"] = {}
-                    comments_query_params["$text"]["$search"] = params[param]
+                    comments_query_params["$text"]["$search"] = '\"' + params[param] + '\"'
             else:
                 key = get_attribute_key(param)
                 if key is not None:
