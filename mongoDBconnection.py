@@ -79,9 +79,9 @@ def get_comment_by_posts(post_query, comment_query=None):
                 [("post_id", pymongo.ASCENDING), ("post_position", pymongo.ASCENDING), ("comment_position", pymongo.ASCENDING)])
         results = list(post_result)
         for post in results:
-            del post['_id']
             post.update(post['from'])
             del post['from']
+            del post['_id']
         return results
     except Exception as bwe:
         print(bwe)
