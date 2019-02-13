@@ -80,6 +80,8 @@ def get_comment_by_posts(post_query, comment_query=None):
         results = list(post_result)
         for post in results:
             del post['_id']
+            post.update(post['from'])
+            del post['from']
         return results
     except Exception as bwe:
         print(bwe)
